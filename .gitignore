@@ -1,0 +1,75 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python environments and caches
+venv/
+.venv/
+env/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Database files and dumps
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+*.backup
+*.tar
+*.tar.gz
+
+# Archives and local backups
+*.zip
+*.7z
+*.rar
+backups/
+bol_backups/
+*_backup*
+*.bak
+*.before_*
+*.failed_*
+*.old
+
+# BOL runtime-generated data
+uploads/
+uploads/**
+stored_chunks/
+stored_chunks/**
+downloads/
+downloads/**
+decrypted/
+decrypted/**
+incoming/
+incoming/**
+tmp/
+temp/
+
+# Logs and process files
+*.log
+*.pid
+nohup.out
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# SSH and credential files
+.ssh/
+*.pub
+credentials*
+secrets*

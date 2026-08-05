@@ -1,0 +1,301 @@
+BOL DEVELOPMENT NOTES
+Date: July 27, 2026
+
+PHASE 4
+Automatic Failover and Automatic Re-Replication
+
+STARTING CHECKPOINT
+
+Phase 3 was previously completed and frozen under:
+
+Git tag:
+phase3-distributed-rebuild-validated
+
+Phase 3 confirmed:
+- Distributed encrypted file rebuild
+- Correct chunk ordering
+- SHA256 match between original and rebuilt file
+- PostgreSQL-backed distributed chunk metadata
+- Successful reconstruction of the complete uploaded file
+
+
+PHASE 4 OBJECTIVE
+
+Build and validate automatic failover and automatic re-replication when a storage node becomes unavailable.
+
+The system needed to:
+
+1. Detect or simulate a failed node.
+2. Identify primary chunks affected by the failed node.
+3. Select a valid online replica.
+4. Promote that replica to primary.
+5. Record a recovery event.
+6. Select another eligible online node.
+7. Create a replacement replica record.
+8. Restore the required replica count.
+9. Avoid selecting offline nodes or the failed node.
+10. Avoid duplicate endpoints and unnecessary duplicate code.
+
+
+DEVELOPMENT COMPLETED
+
+1. Reviewed Existing Endpoints
+
+Confirmed that the existing endpoint was already present:
+
+POST /automatic-failover/{node_id}
+
+No duplicate endpoint was created.
+
+The existing endpoint delegates to:
+
+NodeService.automatic_failover(node_id)
+
+
+2. Node Impact Logic Cleanup
+
+Reviewed get_node_chunks() and get_node_impact().
+
+The duplicated get_node_impact logic was removed safely by changing it to reuse the existing method:
+
+def get_node_impact(self, node_id):
+    return self.get_node_chunks(node_id)
+
+This retained endpoint compatibility while removing duplicated database-query logic.
+
+
+3. Node Failure Simulation Validation
+
+Validated:
+
+POST /simulate-node-failure/{node_id}
+
+The endpoint:
+
+- Marks the selected node offline
+- Updates last_seen
+- Creates a node health event
+- Identifies all affected distributed chunks
+- Returns the impacted chunk records
+
+USA003 was used as the main Phase 4 failure-test node.
+
+The test identified:
+
+273 affected primary chunks
+
+
+4. Automatic Failover Improvements
+
+Updated automatic_failover() to process primary chunks stored on the failed node.
+
+For every affected primary chunk, the system:
+
+- Searches distributed_chunk_replicas
+- Joins against the nodes table
+- Requires the replica node to be online
+- Excludes the failed node
+- Selects the preferred eligible replica
+- Marks the failed primary storage record as failed
+- Marks the selected replica as promoted_to_primary
+- Creates a recovery event
+
+
+5. Recovery Event Logging
+
+Each successful promotion creates an entry in recovery_events.
+
+Recorded information includes:
+
+- recovery_id
+- file_id
+- chunk_id
+- failed_node_id
+- promoted_node_id
+- recovery_action
+- status
+- created_at
+
+Recovery action used:
+
+automatic_failover
+
+Recovery status used:
+
+recovered
+
+
+6. Database-Level Automatic Re-Replication
+
+After promoting a replica to primary, the system now searches for another eligible online node to restore redundancy.
+
+The replacement-node selection excludes:
+
+- The failed node
+- The newly promoted node
+- Nodes already holding an active replica for that chunk
+- Offline nodes
+
+A new distributed_chunk_replicas record is then created for the selected replacement node.
+
+This restores the configured two-replica requirement at the metadata and database level.
+
+
+IMPORTANT ARCHITECTURE NOTE
+
+This code completes database-level automatic re-replication.
+
+At this prototype stage, replica creation is represented through PostgreSQL metadata records.
+
+Once actual BOL node agents are running on separate machines, this database-only portion will be replaced by real communication with node agents.
+
+The future production workflow will instruct the selected replacement node to:
+
+- Download or receive the chunk
+- Store the chunk physically
+- Calculate and verify its checksum
+- Confirm successful storage
+- Report the completed operation to the control plane
+
+Only after node-agent confirmation should production metadata be finalized.
+
+
+7. Safety and Eligibility Rules Added
+
+Automatic failover now prevents invalid promotion and replacement choices.
+
+The system verifies:
+
+- Replica node is online
+- Replica node is not the failed node
+- Replacement node is online
+- Replacement node is not the promoted node
+- Replacement node does not already hold the same replica
+- Existing endpoint structure is reused
+- No duplicate automatic-failover endpoint was introduced
+
+
+8. Compilation and Runtime Validation
+
+Successfully compiled:
+
+services/node_service.py
+app.py
+
+The FastAPI application started successfully through Uvicorn.
+
+API-key authenticated curl commands were used for all endpoint testing.
+
+Swagger remained disabled as required for the controlled private prototype.
+
+
+9. Automatic Failover Test Results
+
+Endpoint tested:
+
+POST /automatic-failover/USA003
+
+Validated response:
+
+- success: true
+- failed_node_id: USA003
+- affected_primary_chunks: 273
+- failover_events_created: 273
+- replication_events_created: 273
+
+The response included:
+
+- recovery IDs
+- affected file IDs
+- affected chunk IDs
+- failed node IDs
+- promoted node IDs
+- promoted storage IDs
+- recovered status
+
+
+10. Idempotency Validation
+
+The automatic-failover endpoint was called again after the original failover had completed.
+
+The second execution returned:
+
+- affected_primary_chunks: 0
+- failover_events_created: 0
+
+This confirms already-failed primary records were not processed repeatedly.
+
+
+11. Replica Status Validation
+
+PostgreSQL queries confirmed that:
+
+- Promoted replicas were recorded as promoted_to_primary
+- Remaining active replicas retained replicated status
+- Replacement replica records were created
+- Existing replica history remained available
+- No important records were accidentally deleted
+
+
+12. Final Replica Consistency Test
+
+Final SQL validation:
+
+SELECT
+    chunk_id,
+    COUNT(*) AS replicas
+FROM distributed_chunk_replicas
+WHERE file_id = 'FILE-d8019bce-2ee1-4070-aba4-9e87a85f6ce7'
+GROUP BY chunk_id
+HAVING COUNT(*) <> 2;
+
+Result:
+
+0 rows
+
+This proves every chunk for the tested file has exactly two replica records after automatic failover and automatic re-replication.
+
+
+PHASE 4 FINAL STATUS
+
+PHASE 4 COMPLETE AND VALIDATED
+
+Completed capabilities:
+
+- Node failure simulation
+- Impacted-primary identification
+- Online-replica selection
+- Replica promotion
+- Recovery-event creation
+- Replacement-node selection
+- Database-level automatic re-replication
+- Two-replica restoration
+- Offline-node exclusion
+- Failed-node exclusion
+- Duplicate-placement prevention
+- Idempotent repeated execution
+- Final PostgreSQL consistency validation
+
+
+NEXT DEVELOPMENT PHASE
+
+Do not begin the next phase until this checkpoint is committed and tagged.
+
+The next planned work should begin from the Phase 4 frozen Git checkpoint.
+
+Potential next phase:
+
+Phase 5 - Scheduler and Automated Monitoring Engine
+
+Expected work:
+
+- Periodic heartbeat evaluation
+- Node timeout detection
+- Automatically marking stale nodes offline
+- Triggering failover without a manual API call
+- Retry handling
+- Scheduled integrity checks
+- Scheduled replication-health checks
+- Background worker design
+
+END OF NOTES
