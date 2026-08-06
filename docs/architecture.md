@@ -1,5 +1,9 @@
 # BOL Architecture
 
+<p align="center">
+  <img src="bol-overview.png" width="100%">
+</p>
+
 ## Current Architecture
 
 ```text
