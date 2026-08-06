@@ -1,7 +1,7 @@
 files are coming when i say done only then give responses 
 
 <p align="center">
-  <img src="banner.png" width="100%">
+  <img src="docs/banner.png" width="100%">
 </p>
 
 <h1 align="center">Building the Future of Internet</h1>
