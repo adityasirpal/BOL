@@ -138,6 +138,39 @@ class UploadService:
                 ),
             )
 
+
+    def create_primary_storage_metadata(
+        self,
+        cursor,
+        chunks,
+        file_id,
+        created_at,
+        node_service,
+    ):
+        """
+        Create primary storage records for uploaded chunks.
+
+        Transaction commit remains controlled by FileService.
+        """
+
+        from services.primary_storage_service import create_primary_storage_record
+
+        for chunk in chunks:
+            best_node = node_service.select_best_node()
+
+            if not best_node:
+                raise RuntimeError("No online node available")
+
+            create_primary_storage_record(
+                cursor=cursor,
+                file_id=file_id,
+                chunk_id=chunk["chunk_id"],
+                node_id=best_node["node_id"],
+                chunk_path=chunk["chunk_path"],
+                chunk_size_bytes=chunk["size_bytes"],
+                created_at=created_at,
+            )
+
     async def upload_and_chunk_file(self, file):
         """
         Temporary pass-through.
