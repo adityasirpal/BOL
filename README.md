@@ -159,4 +159,3 @@ Founder & CEO
 Building the Future of Internet.
 
 ---
-> *BOL explores connecting infrastructure itself.*
