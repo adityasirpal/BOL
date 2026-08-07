@@ -154,6 +154,11 @@ BOL is being developed in public because resilient infrastructure benefits from 
 
 **Aditya Sirpal**
 
+Founder & CEO
+Building the Future of Internet.
+
+---
+
 > *The Internet connected people.*
 >
 > *Cloud computing connected applications.*
