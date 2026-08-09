@@ -12,6 +12,22 @@ A consumer-owned global infrastructure network designed to power the next genera
 
 ---
 
+---
+
+## Experience the BOL Network
+
+[![BOL Network Visualization](bol-network-visualizer.png)](https://bol-network-visualizer.asirpal11.chatgpt.site)
+
+<p align="center">
+  <a href="https://bol-network-visualizer.asirpal11.chatgpt.site">
+    <strong>🌐 Launch Interactive Network Visualization</strong>
+  </a>
+</p>
+
+> **Concept visualization:** Network statistics are simulated and demonstrate BOL’s intended architecture and automatic failover behavior.
+
+---
+
 # The Infrastructure Challenge
 
 Humanity is entering an era unlike anything before. Artificial intelligence, scientific research, cloud computing, autonomous systems, enterprise applications, streaming, gaming, and billions of connected devices are generating data at an unprecedented pace. The world is no longer facing a shortage of ideas. It is facing a growing demand for infrastructure. 
