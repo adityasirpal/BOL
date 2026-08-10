@@ -586,22 +586,10 @@ class NodeService:
         self.cursor.execute(
             """
             UPDATE nodes
-            SET status = %s,
-                last_seen = %s
+            SET status = %s
             WHERE node_id = %s
             """,
-            ("offline", created_at, node_id)
-        )
-
-        # Mark the failed node offline.
-        self.cursor.execute(
-            """
-            UPDATE nodes
-            SET status = %s,
-                last_seen = %s
-            WHERE node_id = %s
-            """,
-            ("offline", created_at, node_id)
+            ("offline", node_id)
         )
 
         # Mark every active replica on the failed node as failed.
@@ -1256,20 +1244,29 @@ class NodeService:
             "last_updated": row[4]
         }
 
-    def scan_node_health(self):
+    def scan_node_health(self, node_id=None):
         now = datetime.now(timezone.utc)
         offline_threshold_minutes = 5
         cutoff_time = now - timedelta(minutes=offline_threshold_minutes)
 
-        self.cursor.execute("""
-            SELECT node_id, status, last_seen
-            FROM nodes
-            ORDER BY node_id
-        """)
+        if node_id:
+            self.cursor.execute("""
+                SELECT node_id, status, last_seen
+                FROM nodes
+                WHERE node_id = %s
+                ORDER BY node_id
+            """, (node_id,))
+        else:
+            self.cursor.execute("""
+                SELECT node_id, status, last_seen
+                FROM nodes
+                ORDER BY node_id
+            """)
 
         nodes = self.cursor.fetchall()
         checked_nodes = []
         newly_marked_offline = []
+        failover_results = []
 
         for node in nodes:
             node_id = node[0]
@@ -1292,6 +1289,12 @@ class NodeService:
 
                 newly_marked_offline.append(node_id)
 
+                failover_result = self.automatic_failover(node_id)
+                failover_results.append({
+                    "node_id": node_id,
+                    "result": failover_result
+                })
+
             checked_nodes.append({
                 "node_id": node_id,
                 "previous_status": status,
@@ -1307,6 +1310,7 @@ class NodeService:
             "nodes_checked": len(checked_nodes),
             "newly_marked_offline_count": len(newly_marked_offline),
             "newly_marked_offline": newly_marked_offline,
+            "failover_results": failover_results,
             "checked_nodes": checked_nodes
         }
 
