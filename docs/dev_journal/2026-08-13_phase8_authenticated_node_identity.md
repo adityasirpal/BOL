@@ -1,10 +1,10 @@
 # BOL Development Journal — August 13, 2026
 
-## Phase 8D — Authenticated Node Identity and Heartbeat Trust Boundary
+## Phase 8 — Authenticated Node Identity and Heartbeat Trust Boundary
 
 **Project:** BOL  
 **Development stage:** Controlled Private Prototype  
-**Phase:** 8D  
+**Phase:** 8  
 **Status:** Completed and privately checkpointed
 
 ---
