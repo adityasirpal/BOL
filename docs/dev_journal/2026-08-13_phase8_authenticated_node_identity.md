@@ -22,7 +22,7 @@ requests. That was sufficient while validating basic distributed-storage
 behavior, but it is not an acceptable trust model for a network containing
 independently operated nodes.
 
-Phase 8D therefore introduced the foundation for authenticated node identity.
+Phase 8 therefore introduced the foundation for authenticated node identity.
 
 The central architectural rule established today is:
 
@@ -66,7 +66,7 @@ new authentication logic.
 # 2. Database and Schema Audit
 
 The active database/schema structure was inspected to determine whether an
-existing credential foundation could safely support Phase 8D.
+existing credential foundation could safely support Phase 8.
 
 The node credential structure was confirmed to contain metadata for:
 
@@ -258,7 +258,7 @@ security.
 
 ---
 
-# 9. Core Phase 8D Security Invariant
+# 9. Core Phase 8 Security Invariant
 
 The following invariant was adopted:
 
@@ -290,7 +290,7 @@ control-plane endpoints.
 
 That mechanism was intentionally preserved.
 
-Phase 8D does **not** treat the global/control-plane API authentication mechanism
+Phase 8 does **not** treat the global/control-plane API authentication mechanism
 as node identity.
 
 These are separate trust boundaries:
@@ -535,7 +535,7 @@ continued hardening.
 
 # 21. Final Regression Gate
 
-After the database contention issue was cleared, the Phase 8D regression gate
+After the database contention issue was cleared, the Phase 8 regression gate
 was rerun.
 
 Validation included:
@@ -567,7 +567,7 @@ identity.
 
 # 22. Security Architecture Established Today
 
-Phase 8D establishes several important BOL security principles.
+Phase 8 establishes several important BOL security principles.
 
 ### Identity is credential-derived
 
@@ -612,7 +612,7 @@ The previous qualification phase answered:
 
 **Should BOL trust this device enough to participate?**
 
-Phase 8D answers a different question:
+Phase 8 answers a different question:
 
 **Which device is actually speaking to BOL right now?**
 
@@ -637,7 +637,7 @@ identity boundary.
 
 # 24. Private Engineering Checkpoint
 
-After final validation, Phase 8D was frozen in the private engineering
+After final validation, Phase 8 was frozen in the private engineering
 repository.
 
 Private checkpoint:
@@ -646,7 +646,7 @@ Private checkpoint:
 
 Private phase tag:
 
-`phase8d-authenticated-node-identity`
+Private authenticated-node-identity milestone checkpoint
 
 The private implementation remains separate from the sanitized public
 development history.
@@ -657,9 +657,9 @@ included in this public journal.
 
 ---
 
-# 25. Phase 8D Result
+# 25. Phase 8 Result
 
-Phase 8D successfully established:
+Phase 8 successfully established:
 
 **Authenticated Node Identity + Authenticated Heartbeat Trust Boundary**
 
@@ -675,7 +675,7 @@ toward an authenticated distributed infrastructure trust model.
 
 # 26. Next Engineering Direction
 
-The authenticated identity boundary created in Phase 8D can now be extended to
+The authenticated identity boundary created in Phase 8 can now be extended to
 additional node-originated operations.
 
 Future work should continue moving node actions away from caller-supplied
