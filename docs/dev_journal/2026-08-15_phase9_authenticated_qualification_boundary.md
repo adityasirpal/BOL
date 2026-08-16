@@ -273,7 +273,6 @@ The endpoint follows the same fundamental identity pattern already established f
 
 Conceptually:
 
-```text
 Node Agent
     |
     | qualification measurements
@@ -792,7 +791,6 @@ That behavior is important for a distributed system in which many independently 
 
 The combined Phase 8 + Phase 9 regression produced the following result:
 
-```text
 Heartbeat identity
     -> SERVER-DERIVED
 
