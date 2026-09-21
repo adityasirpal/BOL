@@ -110,7 +110,11 @@ Artificial intelligence will require dramatically more infrastructure than exist
 
 # Current Development
 
-**Current milestone: Phase 12A–12E — Node Agent Storage Protocol.** The [September 18, 2026 development journal](docs/dev_journal/2026-09-18_phase12_node_agent_storage_protocol.md) documents implementation and validation of the core protocol boundaries from assignment delivery through authenticated transfer completion. Phase 11 replica trust is complete; further integration of transfer completion with evidence and verification remains ahead.
+**Current milestone: Phase 14 — Authoritative Durability & Renewable Possession Assurance.** The [Phase 14 development journal](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md) covers reproducible control-plane bootstrap, evidence-derived durability and renewable possession assurance.
+
+BOL no longer treats legacy replica metadata as proof of possession. Durability conclusions derive from authoritative control-plane evidence and explain which copies qualify and why others do not. Authenticated possession challenges for enrolled physical copies let BOL measure returned bytes and verify integrity itself, with equivalent proof semantics for primaries and replicas.
+
+Possession-proof freshness policy and automated renewal scheduling remain under development. Successful challenges currently remain historical proof and contribute zero sufficiently fresh qualifying copies until freshness policy is approved. Phase 14 does not provide automatic repair. AI may advise but does not mutate authoritative BOL state.
 
 This repository presents BOL's public foundation and sanitized engineering progress. Earlier prototype work established node registration, metadata management, chunk-based storage, replication, integrity validation, and recovery workflows. Current development strengthens how storage work is authorized, performed, and evaluated.
 
@@ -131,7 +135,7 @@ Phase 11 completed adversarial testing and end-to-end validation of this trust c
 
 ## Phase 12A–12E — From Assignment to Transfer Completion
 
-The latest journal documents five implemented protocol boundaries:
+The September 18 journal documents five implemented protocol boundaries:
 
 | Milestone | Public outcome |
 | --- | --- |
@@ -157,9 +161,11 @@ This distinction keeps local storage success, node reports, and authoritative re
 | --- | --- | --- |
 | Phase 11 — Replica Trust Architecture | Complete | Assignment intent, node evidence, deterministic verification, and legal lifecycle transitions. |
 | Phase 12A–12E — Node Agent Storage Protocol | Implemented and validated in the September 18 journal | Authenticated assignment delivery, acceptance, durable storage, assignment-bound authority, and transfer completion. |
-| Transfer-to-verification integration | Next development work | Connect the transfer lifecycle with the existing replica evidence and deterministic verification architecture. |
+| Phase 13 — Verified Replication Trust | Complete | Authenticated evidence, deterministic verification and replica lifecycle authority; see the [Phase 13 journal](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md). |
+| Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Reproducible bootstrap, explainable durability assessment and authenticated read-back proof; freshness policy remains unconfigured. |
+| Phase 14C — Possession Renewal Measurement & Freshness Policy | Next development work | Begin with measurement and capacity analysis before approving a proof lifetime or renewal schedule. |
 
-The current milestone covers the core transfer protocol boundaries. Further integration and validation remain before treating the full replication path as verified end to end.
+The current milestone separates desired durability from what evidence can substantiate. Possession freshness and automated renewal scheduling remain future work; historical proof is not indefinite assurance, and this milestone does not automate repair.
 
 BOL's broader vision remains distributed storage, content delivery, distributed compute, and AI infrastructure. Follow the [public development journals](docs/dev_journal/) for milestone updates.
 
@@ -204,6 +210,7 @@ BOL is being developed in public because resilient infrastructure benefits from 
 - [Development journals](docs/dev_journal/)
 - [Phase 11 — Replica Trust](docs/dev_journal/2026-09-11_phase11_replica_trust.md)
 - [Phase 12A–12E — Node Agent Storage Protocol](docs/dev_journal/2026-09-18_phase12_node_agent_storage_protocol.md)
+- [Phase 14 — Durability & Possession Assurance](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
 - Whitepaper → In Development
 
 ---
