@@ -1,232 +1,194 @@
-<p align="center">
-  <img src="banner.png" width="100%">
-</p>
-
-<h1 align="center">Building the Future of Internet</h1>
+<h1 align="center">BOL — The infrastructure is the network.</h1>
 
 <p align="center">
-
-A consumer-owned global infrastructure network designed to power the next generation of storage, content delivery, distributed compute, and artificial intelligence.
-
+A distributed infrastructure project building verifiable storage across independent machines—with CDN, compute and AI infrastructure as the longer-term vision.
 </p>
-
----
-
----
-
-## Experience the BOL Network
-
-[![BOL Network Visualization](bol-network-visualizer.png)](https://bol-network-visualizer.asirpal11.chatgpt.site)
 
 <p align="center">
-  <a href="https://bol-network-visualizer.asirpal11.chatgpt.site">
-    <strong>🌐 Launch Interactive Network Visualization</strong>
-  </a>
+  <a href="#how-bol-works">How it works</a> ·
+  <a href="docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md">Latest engineering journal</a> ·
+  <a href="#roadmap">Roadmap</a> ·
+  <a href="#get-involved">Get involved</a> ·
+  <a href="LICENSE">MIT License</a>
 </p>
 
-> **Concept visualization:** Network statistics are simulated and demonstrate BOL’s intended architecture and automatic failover behavior.
+> **Nodes report evidence. BOL derives authoritative state.**
 
----
+**STORE → DISTRIBUTE → VERIFY → PROVE → RECOVER**
 
-# The Infrastructure Challenge
+**Implemented and certified:** storage/replica workflows, deterministic verification and bounded possession challenges. **RECOVER: future orchestration—not a completed Phase 14 capability.**
 
-Humanity is entering an era unlike anything before. Artificial intelligence, scientific research, cloud computing, autonomous systems, enterprise applications, streaming, gaming, and billions of connected devices are generating data at an unprecedented pace. The world is no longer facing a shortage of ideas. It is facing a growing demand for infrastructure. 
-For decades, expanding digital infrastructure has largely meant building larger data centers. That approach has transformed the world. It has also required enormous investments in land, power, cooling, networking, specialized hardware, regulatory approvals, and continuous capital. As AI accelerates, the demand for storage, networking, and compute will continue growing. The question is no longer whether more infrastructure is needed. The question is:
+Successful challenges remain historical proof while possession freshness policy is unconfigured. Automated renewal and repair remain future work.
 
-> **Can humanity build infrastructure differently?**
+<p align="center">
+  <img src="banner.png" alt="BOL — Building the Future of Internet" width="640">
+</p>
 
----
+## Why BOL?
 
-# Introducing BOL
+Independent machines can contribute storage. Coordinating them requires more than recording where copies are supposed to exist.
 
-BOL explores a different model. Instead of relying exclusively on centralized facilities, BOL is designed as a globally distributed infrastructure network powered by independent participants around the world. Every new participant contributes capacity. Every new node strengthens resilience. Every new region improves global availability. Rather than building one more data center, BOL explores how millions of independently operated systems can work together as one coordinated infrastructure platform. The objective is not simply distributed storage. The objective is distributed infrastructure.
+BOL separates placement intent, completed transfers, reported evidence and authoritative verification. Its control plane asks two different questions:
 
----
+- **Desired durability:** how many qualifying copies does policy require?
+- **Provable durability:** which copies does the available evidence actually support?
 
-# Storage Is Only the Beginning
+A replica record alone does not prove possession. BOL explains its durability conclusions through evidence, qualification rules and exclusion reasons.
 
-Storage is the foundation. It is not the destination. The long-term vision for BOL extends far beyond storing files. As the platform evolves, BOL aims to support:
+Storage is the current engineering focus. The broader goal is a network that can eventually support content delivery, distributed compute and AI workloads.
 
-1. Distributed Storage
-2. Global Content Delivery
-3. Intelligent Replication
-4. Disaster Recovery
-5. Edge Infrastructure
-6. Distributed Compute
-7. AI Inference
-8. Future AI Infrastructure
+## What works today?
 
-Every generation of the platform expands what the network is capable of delivering.
+**Current milestone: Phase 14 — Authoritative Durability & Renewable Possession Assurance.**
 
----
-
-# Human-Powered Infrastructure
-
-People already own enormous amounts of infrastructure, Storage, Bandwidth, Processing power. Most of it remains unused for much of its lifetime. BOL explores how these resources can become part of a coordinated global network. Participation is voluntary. Contribution is measurable. Growth becomes organic. Instead of requiring every expansion to begin with constructing another facility, the network grows because people choose to participate.
-
----
-
-# The Evolution of BOL
-
-The first generation of BOL is designed to operate on existing hardware. Over time, the platform is expected to evolve into a complete infrastructure ecosystem. Future milestones include:
-
-### BOL Node OS
-
-A dedicated operating system designed specifically for running BOL infrastructure nodes. Long-term objectives include:
-
-1. Secure boot
-2. Automatic updates
-3. Remote management
-4. Minimal operating environment
-5. Optimized networking
-6. Simplified deployment
-
-### Dedicated BOL Node Devices
-
-As the platform matures, BOL envisions purpose-built hardware designed specifically for the network. These dedicated devices are intended to provide:
-
-1. Plug-and-play deployment
-2. Enterprise-grade reliability
-3. Optimized storage performance
-4. Low power consumption
-5. Secure hardware architecture
-6. Simplified participation
-
-The long-term objective is simple: Connect power, Connect Internet - Become part of the global infrastructure network.
-
----
-
-# A Global Participation Economy
-
-Infrastructure should not only be consumed. It should also be possible to contribute to it. BOL envisions a future where operators who provide verified infrastructure resources can receive compensation based on measurable network contribution. Future settlement mechanisms may include digital payment networks such as USDC or other stable digital assets, subject to legal, regulatory, and technical considerations.
-
----
-
-# Built for the AI Era
-
-Artificial intelligence will require dramatically more infrastructure than exists today. Training models, Serving models, Managing datasets, Distributing knowledge, Operating globally. The next generation of AI will depend not only on better models, but on significantly expanding the world's storage, networking, and compute capacity. BOL aims to become one of the infrastructure platforms capable of supporting that future.
-
----
-
-# Current Development
-
-**Current milestone: Phase 14 — Authoritative Durability & Renewable Possession Assurance.** The [Phase 14 development journal](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md) covers reproducible control-plane bootstrap, evidence-derived durability and renewable possession assurance.
-
-BOL no longer treats legacy replica metadata as proof of possession. Durability conclusions derive from authoritative control-plane evidence and explain which copies qualify and why others do not. Authenticated possession challenges for enrolled physical copies let BOL measure returned bytes and verify integrity itself, with equivalent proof semantics for primaries and replicas.
-
-Possession-proof freshness policy and automated renewal scheduling remain under development. Successful challenges currently remain historical proof and contribute zero sufficiently fresh qualifying copies until freshness policy is approved. Phase 14 does not provide automatic repair. AI may advise but does not mutate authoritative BOL state.
-
-This repository presents BOL's public foundation and sanitized engineering progress. Earlier prototype work established node registration, metadata management, chunk-based storage, replication, integrity validation, and recovery workflows. Current development strengthens how storage work is authorized, performed, and evaluated.
-
-## Phase 11 — Replica Trust Foundation
-
-Phase 11 established a clear separation between four responsibilities:
-
-1. **Assignment intent:** BOL defines the replica it expects to be created.
-2. **Node observation:** An authenticated node reports what it observed.
-3. **BOL verification:** Deterministic checks evaluate evidence against authoritative expectations.
-4. **Assignment lifecycle:** A separate control-plane decision authorizes legal state transitions.
-
-The governing principle remains:
-
-> **Nodes report evidence; BOL derives authoritative state.**
-
-Phase 11 completed adversarial testing and end-to-end validation of this trust chain. Historical replica records were not automatically converted into verified copies. See the [Phase 11 journal](docs/dev_journal/2026-09-11_phase11_replica_trust.md).
-
-## Phase 12A–12E — From Assignment to Transfer Completion
-
-The September 18 journal documents five implemented protocol boundaries:
-
-| Milestone | Public outcome |
+| Foundation | Implemented capability |
 | --- | --- |
-| 12A — Assignment delivery | An authenticated destination receives only the assignments addressed to it. Retrieval does not advance assignment state. |
-| 12B — Assignment acceptance | The destination explicitly accepts work; BOL controls the legal transition and enforces assignment expiry. Repeated acceptance is handled safely. |
-| 12C — Durable replica storage | The Node Agent controls locations within its storage boundary, handles partial writes, checks locally stored bytes, and safely finalizes valid objects. |
-| 12D — Assignment-bound authority | Storage uses BOL's authoritative assignment expectations. The caller cannot choose its own destination, integrity expectations, or lifecycle state. |
-| 12E — Transfer completion | The authenticated destination reports completion observations. BOL checks ownership, lifecycle, expiry, timing, and integrity before accepting the transfer-stage transition. |
+| Authenticated participation | Node identity is established through authentication; nodes do not choose their own authority. |
+| Distributed storage workflows | Chunk and replica workflows separate assignment, storage, transfer completion and verification. |
+| Replica trust | BOL evaluates evidence and controls deterministic replica lifecycle transitions. |
+| Explainable durability | Required copies and qualifying copies are assessed separately, with reasons for exclusions. |
+| Physical-copy identity | Stable copy identity survives primary/replica role changes; enrollment does not imply possession. |
+| Possession challenges | BOL issues single-use read-back challenges and independently measures returned byte count and SHA-256. |
+| Reproducible control plane | An ordered bootstrap constructs the canonical database; startup verifies rather than repairs schema. |
 
-Validation covered destination isolation, expired and invalid assignments, storage containment, partial writes, integrity mismatches, conflicting stored content, corruption handling, and safe retries. Rejected operations were also checked to ensure they do not silently advance authoritative state.
+**Important:** successful possession challenges currently remain historical proof. While freshness policy is unconfigured, they contribute **zero sufficiently fresh qualifying copies** to durability assessment. That is a limit on what BOL can currently substantiate, not a declaration that the bytes have been lost.
 
-## Transferred Does Not Mean Verified
+## How BOL works
 
-Accepted transfer completion means that a destination's completion observation passed the transfer-stage checks. Verified replica possession remains a separate decision based on evidence and deterministic BOL verification.
+| Step | Meaning and status |
+| --- | --- |
+| **STORE** | Implemented storage workflows handle bytes within the authorized storage boundary. |
+| **DISTRIBUTE** | Implemented replica workflows carry out BOL-authorized assignments. |
+| **VERIFY** | Implemented deterministic checks evaluate evidence and preserve lifecycle authority. |
+| **PROVE** | Implemented bounded challenges establish that an authenticated endpoint supplied the expected bytes during the challenge window. |
+| **RECOVER** | Future orchestration. Phase 14 assessment can identify an advisory need for repair, but does not perform it. |
 
-This distinction keeps local storage success, node reports, and authoritative replica trust separate. It provides the foundation for future durability and recovery decisions.
+The implemented steps are documented in the [Phase 13](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md) and [Phase 14](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md) journals. “PROVE” does not mean continuous storage has been established.
 
----
+```mermaid
+flowchart TD
+    A["BOL assignment intent"] --> B["Authenticated Node Agents"]
+    B --> C["Storage and transfer observations"]
+    C --> D["BOL verification and lifecycle decisions"]
+    E["BOL possession challenge"] --> B
+    B --> F["Returned object bytes"]
+    F --> G["BOL measures byte count and SHA-256"]
+    G --> H["Historical possession proof"]
+    D --> I["Read-only durability assessment"]
+    H --> I
+    P["Policy and eligibility requirements"] --> I
+    I --> J["Explained result and advisory repair need"]
+```
 
-# Roadmap
+Historical proof becomes a qualifying input only when all applicable requirements are satisfied. Possession freshness is not yet configured.
 
-| Milestone | Status | Focus |
+### Evidence has boundaries
+
+Primary and replica copies use equivalent possession-proof semantics. Neither a primary label nor a legacy replica status receives a shortcut.
+
+Contradictory evidence remains visible. Earlier proof cannot erase a later contradiction; reconciliation requires qualifying subsequent challenge evidence.
+
+BOL preserves the distinction between:
+
+- what a node reports;
+- what BOL verifies;
+- what lifecycle actions BOL authorizes;
+- and what durability policy can conclude.
+
+AI may advise, but it does not mutate authoritative BOL state.
+
+[Explore the architecture](docs/architecture.md) · [Read the replica-trust journal](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md)
+
+## Engineering evidence
+
+The September 20, 2026 Phase 14 checkpoint recorded:
+
+| Certification result | Count |
+| --- | ---: |
+| Passing tests | 226 |
+| PostgreSQL integration tests, included above | 126 |
+| Python modules compiled | 87 |
+
+Certification covered reproducible empty-database construction, migration replay and upgrade, startup verification, adversarial evidence, credential behavior, concurrency, cancellation and privacy boundaries.
+
+Atomic operations own their database transactions. Storage protections remain in effect through protected filesystem work. Enrolled objects cannot bypass possession assurance through legacy mutation or standalone legacy integrity verification.
+
+These are checkpoint results, not a throughput benchmark, independent security audit or availability guarantee.
+
+This repository presents BOL's public foundation and engineering journals. The journals document milestone capability; they are not a claim that every described capability is available as a turnkey deployment from this checkout.
+
+[Read the complete Phase 14 engineering journal](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
+
+## Current limits
+
+- **Freshness:** possession-proof lifetime remains unconfigured. Historical proof is not indefinitely current assurance.
+- **Renewal:** automated challenge scheduling is not complete.
+- **Repair:** Phase 14 does not provide automatic repair, re-replication or surplus deletion.
+- **Scope:** authoritative file-level durability remains future work.
+- **Independence:** device, operator and geographic guarantees are not established by distinct-node counting.
+- **Proof strength:** a successful challenge does not establish local-disk residency, continuous storage or inability to retrieve bytes from another source.
+
+## Explore the network vision
+
+**Concept simulation—not a live or certified network.** Statistics are simulated, and depicted failover behavior illustrates the intended architecture rather than delivered Phase 14 automatic repair.
+
+[![BOL network concept visualization](bol-network-visualizer.png)](https://bol-network-visualizer.asirpal11.chatgpt.site)
+
+[Open the interactive concept visualization](https://bol-network-visualizer.asirpal11.chatgpt.site)
+
+**Next public visual asset:** a sanitized possession-challenge demonstration showing BOL's byte measurement, historical proof and the unconfigured freshness limit. This is the highest-priority planned visual; it has not been created yet.
+
+## Roadmap
+
+| Stage | Status | Focus |
 | --- | --- | --- |
-| Phase 11 — Replica Trust Architecture | Complete | Assignment intent, node evidence, deterministic verification, and legal lifecycle transitions. |
-| Phase 12A–12E — Node Agent Storage Protocol | Implemented and validated in the September 18 journal | Authenticated assignment delivery, acceptance, durable storage, assignment-bound authority, and transfer completion. |
-| Phase 13 — Verified Replication Trust | Complete | Authenticated evidence, deterministic verification and replica lifecycle authority; see the [Phase 13 journal](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md). |
-| Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Reproducible bootstrap, explainable durability assessment and authenticated read-back proof; freshness policy remains unconfigured. |
-| Phase 14C — Possession Renewal Measurement & Freshness Policy | Next development work | Begin with measurement and capacity analysis before approving a proof lifetime or renewal schedule. |
+| Phase 11 — Replica Trust | Complete | Assignment intent, evidence, verification and lifecycle boundaries. |
+| Phase 12 — Node Agent Storage Protocol | Implemented and validated | Authenticated storage workflows and transfer-to-verification integration. |
+| Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
+| Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
+| Phase 14C — Renewal Measurement & Freshness Policy | Next | Measure capacity, latency and failures before selecting a proof lifetime or renewal interval. |
+| Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
 
-The current milestone separates desired durability from what evidence can substantiate. Possession freshness and automated renewal scheduling remain future work; historical proof is not indefinite assurance, and this milestone does not automate repair.
+### The broader direction
 
-BOL's broader vision remains distributed storage, content delivery, distributed compute, and AI infrastructure. Follow the [public development journals](docs/dev_journal/) for milestone updates.
+**Storage → CDN → Compute → AI**
 
----
+Storage is today's foundation. Content delivery, edge infrastructure, distributed compute, AI inference and broader AI infrastructure remain longer-term goals.
 
-# Core Principles
+BOL explores voluntary participation by independent operators using existing hardware. Future concepts include a dedicated BOL Node OS, purpose-built devices and compensation for verified contributions. These are vision items, not current product or earnings promises.
 
-Everything within BOL is guided by a few fundamental principles.
+Distribution, resilience, security, simplicity and participation guide that work.
 
-## Distribution
+## Follow the engineering
 
-Infrastructure should become stronger as participation grows.
-
-## Resilience
-
-No individual node should become a single point of failure.
-
-## Security
-
-Encryption, integrity verification, and trust should be built into the foundation.
-
-## Simplicity
-
-Powerful infrastructure should remain simple to deploy and operate.
-
-## Participation
-
-The Internet connected computers. BOL explores what happens when infrastructure itself becomes connected.
-
----
-
-# Open Development
-
-BOL is being developed in public because resilient infrastructure benefits from transparency, collaboration, and continuous improvement. The public repository represents the open foundation of the platform. Architecture, engineering milestones, and documentation will continue evolving alongside the network itself.
-
----
-
-# Documentation
-
-- [Architecture](docs/architecture.md)
-- [Roadmap](#roadmap)
-- [Development journals](docs/dev_journal/)
-- [Phase 11 — Replica Trust](docs/dev_journal/2026-09-11_phase11_replica_trust.md)
-- [Phase 12A–12E — Node Agent Storage Protocol](docs/dev_journal/2026-09-18_phase12_node_agent_storage_protocol.md)
 - [Phase 14 — Durability & Possession Assurance](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
-- Whitepaper → In Development
+- [Phase 13 — Verified Replication Trust](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md)
+- [Phase 12 — Replica Verification](docs/dev_journal/2026-09-19_phase12_replica_verification_complete.md)
+- [Phase 12 — Node Agent Storage Protocol](docs/dev_journal/2026-09-18_phase12_node_agent_storage_protocol.md)
+- [Phase 11 — Replica Trust](docs/dev_journal/2026-09-11_phase11_replica_trust.md)
+- [All development journals](docs/dev_journal/)
+- [Architecture](docs/architecture.md)
 
----
+Whitepaper: in development.
 
-# Founder
+## Get involved
 
-**Aditya Sirpal**
+**⭐ Star BOL to support the project and help others discover it.**
 
-Founder & CEO
+- Follow the development journals and choose your preferred GitHub notification settings.
+- Explore the architecture and raise focused questions through [GitHub Issues](https://github.com/adityasirpal/BOL/issues).
+- Suggest documentation improvements or discuss the scope of a proposed contribution before starting substantial work.
+
+## Founder and license
+
+**Aditya Sirpal — Founder & CEO**
 
 Building the Future of Internet.
 
----
+BOL's public repository is licensed under the [MIT License](LICENSE).
 
-> *The Internet connected people.*
+> The Internet connected people.
 >
-> *Cloud computing connected applications.*
+> Cloud computing connected applications.
 >
-> *BOL explores connecting infrastructure itself.*
+> BOL explores connecting infrastructure itself.
