@@ -6,7 +6,7 @@ A distributed infrastructure project building verifiable storage across independ
 
 <p align="center">
   <a href="#how-bol-works">How it works</a> ·
-  <a href="docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md">Latest engineering journal</a> ·
+  <a href="docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
@@ -36,6 +36,16 @@ BOL separates placement intent, completed transfers, reported evidence and autho
 A replica record alone does not prove possession. BOL explains its durability conclusions through evidence, qualification rules and exclusion reasons.
 
 Storage is the current engineering focus. The broader goal is a network that can eventually support content delivery, distributed compute and AI workloads.
+
+## Current Development
+
+**Phase 14C milestone: first successful real remote Node Agent possession challenge over verified HTTPS.**
+
+A database-free, authenticated remote Node Agent independently read a synthetic 1-KiB object. BOL independently measured **1,024 bytes**, computed **SHA-256**, and accepted the response within its server-issued challenge window, establishing historical possession assurance.
+
+**The boundary remains explicit:** `proof_lifetime` is NULL/unconfigured; current qualifying durability remains **zero** and durability remains **unproven**. Automated re-verification/renewal and repair/re-replication remain future work. This result does not prove continuous storage or local-disk residency and is not a production-capacity benchmark.
+
+[Read the September 23 remote possession journal](docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md)
 
 ## What works today?
 
@@ -146,14 +156,14 @@ This repository presents BOL's public foundation and engineering journals. The j
 | Phase 12 — Node Agent Storage Protocol | Implemented and validated | Authenticated storage workflows and transfer-to-verification integration. |
 | Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
 | Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
-| Phase 14C — Renewal Measurement & Freshness Policy | Next | Measure capacity, latency and failures before selecting a proof lifetime or renewal interval. |
+| Phase 14C — Renewal Measurement & Freshness Policy | Real remote possession milestone complete; freshness policy pending | First real remote challenge accepted. Further measurement and review precede numeric proof lifetime, renewal policy and activation. |
 | Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
 
 ### The broader direction
 
-**Storage → CDN → Compute → AI**
+**Storage → verified possession → freshness/durability → automated recovery → vendor-neutral/cloud-agnostic interoperability → CDN → compute → AI infrastructure**
 
-Storage is today's foundation. Content delivery, edge infrastructure, distributed compute, AI inference and broader AI infrastructure remain longer-term goals.
+Storage is today's foundation. The interoperability direction spans **AWS, Azure, GCP, on-premises and BOL-native infrastructure**. S3 compatibility is one planned interface, not BOL's platform identity or a delivered integration claim. Content delivery, edge infrastructure, distributed compute, AI inference and broader AI infrastructure remain longer-term goals.
 
 BOL explores voluntary participation by independent operators using existing hardware. Future concepts include a dedicated BOL Node OS, purpose-built devices and compensation for verified contributions. These are vision items, not current product or earnings promises.
 
@@ -161,6 +171,7 @@ Distribution, resilience, security, simplicity and participation guide that work
 
 ## Follow the engineering
 
+- [Phase 14C — First Real Remote Possession Challenge](docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md)
 - [Phase 14 — Durability & Possession Assurance](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
 - [Phase 13 — Verified Replication Trust](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md)
 - [Phase 12 — Replica Verification](docs/dev_journal/2026-09-19_phase12_replica_verification_complete.md)
