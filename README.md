@@ -6,7 +6,7 @@ A distributed infrastructure project building verifiable storage across independ
 
 <p align="center">
   <a href="#how-bol-works">How it works</a> ·
-  <a href="docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md">Latest engineering journal</a> ·
+  <a href="docs/dev_journal/2026-10-04_phase14c_remote_possession_measurement.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
@@ -146,7 +146,7 @@ This repository presents BOL's public foundation and engineering journals. The j
 | Phase 12 — Node Agent Storage Protocol | Implemented and validated | Authenticated storage workflows and transfer-to-verification integration. |
 | Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
 | Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
-| Phase 14C — Renewal Measurement & Freshness Policy | Next | Measure capacity, latency and failures before selecting a proof lifetime or renewal interval. |
+| Phase 14C — Renewal Measurement & Freshness Policy | In progress | Controlled remote possession measurement validated; quiet-period evidence and later measurements remain before freshness-policy selection. |
 | Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
 
 ### The broader direction
@@ -161,6 +161,7 @@ Distribution, resilience, security, simplicity and participation guide that work
 
 ## Follow the engineering
 
+- [Phase 14C — Remote Possession Measurement](docs/dev_journal/2026-10-04_phase14c_remote_possession_measurement.md)
 - [Phase 14 — Durability & Possession Assurance](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
 - [Phase 13 — Verified Replication Trust](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md)
 - [Phase 12 — Replica Verification](docs/dev_journal/2026-09-19_phase12_replica_verification_complete.md)
