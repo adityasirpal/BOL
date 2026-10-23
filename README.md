@@ -6,7 +6,7 @@ A distributed infrastructure project building verifiable storage across independ
 
 <p align="center">
   <a href="#how-bol-works">How it works</a> ·
-  <a href="docs/dev_journal/2026-09-28_phase14c_remote_measurement_campaign.md">Latest engineering journal</a> ·
+  <a href="docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
@@ -39,7 +39,17 @@ Storage is the current engineering focus. The broader goal is a network that can
 
 ## Current Development
 
-**Phase 14C milestone: a bounded, manually authorized three-attempt remote possession measurement campaign completed over verified HTTPS.**
+**Phase 14D checkpoint: certification infrastructure has reached a reviewed, fail-closed boundary before credential-root provisioning.**
+
+BOL now has mock-tested certification support for strict private configuration parsing, descriptor-safe credential loading and traversal, live identity observation and recheck, fixed traversal-policy composition, adoption guards, and a fixed root-anchor opener. The committed certification-support regression boundary is **114 PASS, 0 FAIL**.
+
+A separate read-only operator receipt confirmed the reviewed deployment assumptions and found the certification credential hierarchy not yet provisioned. The BOL root opener and live-root traversal have **not** been activated, no credentials were created or read, and no PostgreSQL work occurred in this boundary. The next engineering slice is **credential-root provisioning design**, not provisioning execution.
+
+[Read the Phase 14D certification infrastructure journal](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
+
+### Previous Phase 14C milestone
+
+**A bounded, manually authorized three-attempt remote possession measurement campaign completed over verified HTTPS.**
 
 All three challenges produced accepted historical possession results. For each response, BOL independently measured **1,024 bytes** and computed and verified **SHA-256**. The first attempt exposed an export-procedure defect while possession authority remained correct; the correction was fully recertified, and the next two attempts produced bounded sanitized exports with intentionally partial coverage.
 
@@ -157,6 +167,7 @@ This repository presents BOL's public foundation and engineering journals. The j
 | Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
 | Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
 | Phase 14C — Renewal Measurement & Freshness Policy | Bounded remote measurement campaign complete; freshness policy pending | Three manually authorized challenges accepted; two bounded exports retained. Further evidence and review precede numeric freshness policy and activation. |
+| Phase 14D — Certification Infrastructure | Certification-support boundary established; provisioning design next | Fail-closed identity/path authority, descriptor-safe certification support and fixed root-anchor capability are reviewed and tested. Runtime activation and credential provisioning remain unauthorized. |
 | Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
 
 ### The broader direction
@@ -171,6 +182,7 @@ Distribution, resilience, security, simplicity and participation guide that work
 
 ## Follow the engineering
 
+- [Phase 14D — Certification Infrastructure](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
 - [Phase 14C — Bounded Remote Possession Measurement](docs/dev_journal/2026-09-28_phase14c_remote_measurement_campaign.md)
 - [Phase 14C — First Real Remote Possession Challenge](docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md)
 - [Phase 14 — Durability & Possession Assurance](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
