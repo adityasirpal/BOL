@@ -39,11 +39,11 @@ Storage is the current engineering focus. The broader goal is a network that can
 
 ## Current Development
 
-**Phase 14D checkpoint: certification infrastructure has reached a reviewed, fail-closed boundary before credential-root provisioning.**
+**Phase 14D milestone: certification infrastructure now separates controlled provisioning from independent read-only verification.**
 
-BOL now has mock-tested certification support for strict private configuration parsing, descriptor-safe credential loading and traversal, live identity observation and recheck, fixed traversal-policy composition, adoption guards, and a fixed root-anchor opener. The committed certification-support regression boundary is **114 PASS, 0 FAIL**.
+BOL progressed from the earlier fail-closed pre-provisioning checkpoint through reviewed provisioning design, one-use authorized provisioning, and a separate post-provisioning verification boundary. A controlled real-environment provisioning exercise was followed by independent verification of the intended hierarchy's bounded structural, metadata, relationship and environmental contract.
 
-A separate read-only operator receipt confirmed the reviewed deployment assumptions and found the certification credential hierarchy not yet provisioned. The BOL root opener and live-root traversal have **not** been activated, no credentials were created or read, and no PostgreSQL work occurred in this boundary. The next engineering slice is **credential-root provisioning design**, not provisioning execution.
+Failure evidence remains explicit, and failed operations do not trigger automatic retry or repair. This milestone is intentionally narrow: it does not establish production readiness, SOC 2/HIPAA/GDPR certification, storage durability, credential or database readiness, or continuous future validity.
 
 [Read the Phase 14D certification infrastructure journal](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
 
