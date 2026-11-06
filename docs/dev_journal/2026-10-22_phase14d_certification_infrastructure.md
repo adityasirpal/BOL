@@ -171,3 +171,66 @@ Any subsequent live operation requires explicit authorization and current eviden
   documentation candidate)
 - Next slice: **credential-root provisioning design**
 - Activation: **not authorized**
+
+---
+
+## Phase 14D continuation — provisioning and independent verification
+
+The provisioning-design boundary described above was subsequently implemented,
+reviewed and exercised under a deliberately separated lifecycle:
+
+**fresh pre-change authority → controlled provisioning → independent read-only verification**
+
+Provisioning used one-use authorization and fail-closed hierarchy handling.
+Descriptor-relative and no-follow operations constrained traversal and creation,
+while explicit acquisition evidence and evidence-preserving failure semantics
+kept partial outcomes distinguishable. The design does not automatically retry
+or repair failed operations.
+
+A controlled real-environment provisioning exercise completed successfully for
+the intended certification hierarchy. Provisioning success was not treated as
+verification.
+
+A separate fresh read-only verification then independently re-observed the
+resulting hierarchy. The verification confirmed the reviewed directory type,
+ownership and restrictive-mode expectations, descriptor acquisition and identity
+correlation, parent relationships, target-to-home mount-context relationship,
+and bounded environmental stability required by the certification contract.
+
+The verification authority was separate from mutation authority; provisioning
+confirmation did not authorize verification, and verification did not reuse the
+mutation handle or descriptors as verification authority.
+
+The expanded certification regression completed successfully before the live
+verification boundary was accepted.
+
+### Updated milestone boundary
+
+Phase 14D now demonstrates a bounded operational lifecycle in which BOL can:
+
+- establish fresh pre-change authority;
+- authorize one controlled provisioning attempt;
+- preserve explicit evidence across failure stages;
+- distinguish descriptor acquisition from later descriptor validation;
+- refuse automatic retry or repair;
+- independently verify the resulting hierarchy through a separate read-only
+  boundary; and
+- require reviewed structural, metadata, relationship and environmental
+  conditions before reporting the hierarchy verified for engineering review.
+
+This remains a deliberately narrow engineering claim. It does **not** establish
+SOC 2, HIPAA or GDPR certification, storage durability, credential readiness,
+database readiness, full production readiness or continuous future validity.
+
+No credential contents were read as part of this milestone, and no database work
+is implied by the certification-hierarchy verification.
+
+### Phase 14D closeout
+
+The earlier stop condition requiring provisioning design has been satisfied and
+superseded by controlled provisioning followed by independent verification.
+
+Phase 14D certification infrastructure is therefore closed at the bounded
+hierarchy-verification milestone. Future certification work must establish its
+own reviewed authority and evidence rather than inheriting authorization from
+this milestone.
