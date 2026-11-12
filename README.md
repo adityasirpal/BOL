@@ -47,6 +47,10 @@ Failure evidence remains explicit, and failed operations do not trigger automati
 
 [Read the Phase 14D certification infrastructure journal](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
 
+**Engineering process checkpoint:** BOL now maintains a permanent engineering operating procedure for authoritative checkpoint recovery, adversarial promotion, live-operation authority, evidence preservation, private/public separation, and session closeout. Established procedure takes precedence over workflow improvisation, and advisory tools do not establish runtime truth.
+
+[Read the engineering operating procedure progress report](docs/dev_journal/2026-11-12_engineering_operating_procedure.md)
+
 ### Previous Phase 14C milestone
 
 **A bounded, manually authorized three-attempt remote possession measurement campaign completed over verified HTTPS.**
