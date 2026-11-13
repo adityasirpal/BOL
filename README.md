@@ -6,7 +6,7 @@ A distributed infrastructure project building verifiable storage across independ
 
 <p align="center">
   <a href="#how-bol-works">How it works</a> ·
-  <a href="docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md">Latest engineering journal</a> ·
+  <a href="docs/dev_journal/2026-11-12_engineering_operating_procedure.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
@@ -171,7 +171,7 @@ This repository presents BOL's public foundation and engineering journals. The j
 | Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
 | Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
 | Phase 14C — Renewal Measurement & Freshness Policy | Bounded remote measurement campaign complete; freshness policy pending | Three manually authorized challenges accepted; two bounded exports retained. Further evidence and review precede numeric freshness policy and activation. |
-| Phase 14D — Certification Infrastructure | Certification-support boundary established; provisioning design next | Fail-closed identity/path authority, descriptor-safe certification support and fixed root-anchor capability are reviewed and tested. Runtime activation and credential provisioning remain unauthorized. |
+| Phase 14D — Certification Infrastructure | Bounded hierarchy verification complete; credential/database readiness not established | Controlled certification-hierarchy provisioning and separate independent read-only verification completed. Credential generation/access, database certification and production activation are not established. |
 | Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
 
 ### The broader direction
