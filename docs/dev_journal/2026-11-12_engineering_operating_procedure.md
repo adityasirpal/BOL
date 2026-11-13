@@ -114,3 +114,22 @@ engineering line and preserved through the established complete-history custody
 process.
 
 Public synchronization of this process milestone is the remaining closeout step.
+
+## November 13 private closeout
+
+The engineering operating procedure documentation closeout was committed to the
+authoritative private engineering branch, `private-development`.
+
+- Private closeout commit: `6f48648675cf5904bf5e1711cd097209cff58f5c`
+- Parent: `66743c5c0cffeea19b1079a420ddc56c78cfa6f4`
+- Focused file: `docs/engineering-operating-procedure-closeout.md`
+- Working tree: clean at the reported closeout checkpoint
+
+This was a documentation closeout only. It did not authorize or establish new
+runtime behavior, live operations, credential handling, database changes,
+durability conclusions or production readiness.
+
+Public synchronization remains subject to sanitized documentation review,
+outgoing-history/privacy review, pull-request merge and verification of
+GitHub `main`. Private engineering history is not transferred to the public
+documentation branch.
