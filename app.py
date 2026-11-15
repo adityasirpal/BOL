@@ -1,4 +1,6 @@
 import os
+import uuid
+from datetime import datetime, timezone
 from services.node_service import NodeService
 from routes.health import router as health_router
 from routes.uploads import router as uploads_router
@@ -48,7 +50,15 @@ os.makedirs(CHUNK_DIR, exist_ok=True)
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 os.makedirs(DECRYPTED_DIR, exist_ok=True)
 
-# Add last_seen column if the table already existed from older version
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS nodes (
+    node_id TEXT PRIMARY KEY,
+    country TEXT,
+    storage_gb INTEGER,
+    status TEXT,
+    last_seen TEXT
+)
+""")
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS allocations (
@@ -410,7 +420,7 @@ def restore_node(node_id: str):
     cursor.execute("""
         UPDATE nodes
         SET status = 'online',
-            last_seen = ?
+            last_seen = %s
         WHERE node_id = %s
     """, (restored_at, node_id))
 

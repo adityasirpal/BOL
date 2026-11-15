@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import FileResponse
 
 import os
-import sqlite3
 
 from security import verify_api_key
 from database import conn, cursor
