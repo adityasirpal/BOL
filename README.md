@@ -1,7 +1,7 @@
 <h1 align="center">BOL — The infrastructure is the network.</h1>
 
 <p align="center">
-A distributed infrastructure project building verifiable storage across independent machines—with CDN, compute and AI infrastructure as the longer-term vision.
+Verifiable storage across independent machines—designed for AI teams and regulated businesses that need trustworthy data integrity, storage evidence, and auditable durability.
 </p>
 
 <p align="center">
@@ -28,6 +28,17 @@ BOL's core idea is to keep two questions apart:
 - **Provable durability:** which copies does the evidence actually support?
 
 A replica record alone does not prove a node still has the bytes. Storage is the current focus; content delivery, distributed compute and AI infrastructure are longer-term goals.
+
+## Who it's for
+
+BOL's intended first market is teams that need to prove their stored data, not just store it:
+
+- **AI teams** storing training datasets and model checkpoints that must stay intact and auditable.
+- **Regulated businesses** that answer to auditors about the integrity and durability of their data.
+
+This is a target market, not a commercially available or compliance-certified product.
+
+BOL's possession challenges (documented in the journals; not in this checkout) verify **stored bytes**: that a node returned the expected content when challenged. It does not establish where training data originated, whether a model was trained on it, or the physical location or continuous custody of a copy. Dataset provenance requires additional systems.
 
 ## What's in this repository
 
@@ -97,7 +108,7 @@ The [journals](docs/dev_journal/) record the project's design work phase by phas
 
 ### The broader direction
 
-**Storage → verified possession → freshness/durability → automated recovery → vendor-neutral/cloud-agnostic interoperability → CDN → compute → AI infrastructure**
+**Storage → Verified possession → AI datasets & model checkpoints → Automated recovery → Broader distributed infrastructure**
 
 Storage is today's foundation. The interoperability direction spans **AWS, Azure, GCP, on-premises and BOL-native infrastructure**. S3 compatibility is one planned interface, not BOL's platform identity or a delivered integration claim. Content delivery, edge infrastructure, distributed compute, AI inference and broader AI infrastructure remain longer-term goals.
 
