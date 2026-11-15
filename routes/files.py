@@ -41,7 +41,7 @@ def get_file(file_id: str):
     cursor.execute("""
         SELECT file_id, filename, file_size_gb, allocation_id, node_id, created_at, status
         FROM files
-        WHERE file_id = ?
+        WHERE file_id = %s
     """, (file_id,))
 
     row = cursor.fetchone()

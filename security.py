@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 from fastapi import Header, HTTPException
 
 API_KEY = os.getenv("BOL_API_KEY")

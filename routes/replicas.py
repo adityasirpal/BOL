@@ -18,7 +18,7 @@ def get_distributed_replicas(file_id: str):
         SELECT replica_id, file_id, chunk_id, primary_node_id, replica_node_id,
                chunk_path, chunk_size_bytes, replica_number, status, created_at
         FROM distributed_chunk_replicas
-        WHERE file_id = ?
+        WHERE file_id = %s
         ORDER BY chunk_id, replica_number
     """, (file_id,))
 
@@ -52,7 +52,7 @@ def get_node_replicas(node_id: str):
         SELECT replica_id, file_id, chunk_id, primary_node_id, replica_node_id,
                chunk_path, chunk_size_bytes, replica_number, status, created_at
         FROM distributed_chunk_replicas
-        WHERE replica_node_id = ?
+        WHERE replica_node_id = %s
         ORDER BY created_at
     """, (node_id,))
 
@@ -106,8 +106,8 @@ def heal_missing_primary_chunks():
         cursor.execute("""
             SELECT chunk_path
             FROM distributed_chunk_replicas
-            WHERE file_id = ?
-              AND chunk_id = ?
+            WHERE file_id = %s
+              AND chunk_id = %s
               AND status = 'replicated'
             ORDER BY replica_number
         """, (file_id, chunk_id))
@@ -129,7 +129,7 @@ def heal_missing_primary_chunks():
                 INSERT INTO recovery_events
                 (recovery_id, file_id, chunk_id, failed_node_id, promoted_node_id,
                  recovery_action, status, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """, (
                 recovery_id,
                 file_id,
@@ -159,7 +159,7 @@ def heal_missing_primary_chunks():
             INSERT INTO recovery_events
             (recovery_id, file_id, chunk_id, failed_node_id, promoted_node_id,
              recovery_action, status, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, (
             recovery_id,
             file_id,

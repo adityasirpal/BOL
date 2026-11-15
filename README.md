@@ -5,152 +5,77 @@ A distributed infrastructure project building verifiable storage across independ
 </p>
 
 <p align="center">
-  <a href="#how-bol-works">How it works</a> ·
+  <a href="#whats-in-this-repository">What's here</a> ·
   <a href="docs/dev_journal/2026-11-12_engineering_operating_procedure.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
 </p>
 
-> **Nodes report evidence. BOL derives authoritative state.**
-
 **STORE → DISTRIBUTE → VERIFY → PROVE → RECOVER**
 
-**Implemented and certified:** storage/replica workflows, deterministic verification and bounded possession challenges. **RECOVER: future orchestration—not a completed Phase 14 capability.**
+BOL is an early-stage, MIT-licensed prototype. It is **not production-ready**.
 
-Successful challenges remain historical proof while possession freshness policy is unconfigured. Automated renewal and repair remain future work.
-
-<p align="center">
-  <img src="banner.png" alt="BOL — Building the Future of Internet" width="640">
-</p>
+> **Read this first:** this repository contains BOL's public control-plane prototype. The later Phase 12–14 work described in the [development journals](docs/dev_journal/) — the authenticated Node Agent, possession challenges and durability assessment — is **not included in this checkout**. Those journals describe work done outside this repository; you cannot reproduce it from this code.
 
 ## Why BOL?
 
-Independent machines can contribute storage. Coordinating them requires more than recording where copies are supposed to exist.
+Independent machines can contribute storage. Coordinating them takes more than recording where copies are supposed to exist.
 
-BOL separates placement intent, completed transfers, reported evidence and authoritative verification. Its control plane asks two different questions:
+BOL's core idea is to keep two questions apart:
 
-- **Desired durability:** how many qualifying copies does policy require?
-- **Provable durability:** which copies does the available evidence actually support?
+- **Desired durability:** how many copies does policy require?
+- **Provable durability:** which copies does the evidence actually support?
 
-A replica record alone does not prove possession. BOL explains its durability conclusions through evidence, qualification rules and exclusion reasons.
+A replica record alone does not prove a node still has the bytes. Storage is the current focus; content delivery, distributed compute and AI infrastructure are longer-term goals.
 
-Storage is the current engineering focus. The broader goal is a network that can eventually support content delivery, distributed compute and AI workloads.
+## What's in this repository
 
-## Current Development
+A single FastAPI control node backed by PostgreSQL. It runs everything on one machine and simulates nodes as database records and local folders.
 
-**Phase 14D milestone: certification infrastructure now separates controlled provisioning from independent read-only verification.**
-
-BOL progressed from the earlier fail-closed pre-provisioning checkpoint through reviewed provisioning design, one-use authorized provisioning, and a separate post-provisioning verification boundary. A controlled real-environment provisioning exercise was followed by independent verification of the intended hierarchy's bounded structural, metadata, relationship and environmental contract.
-
-Failure evidence remains explicit, and failed operations do not trigger automatic retry or repair. This milestone is intentionally narrow: it does not establish production readiness, SOC 2/HIPAA/GDPR certification, storage durability, credential or database readiness, or continuous future validity.
-
-[Read the Phase 14D certification infrastructure journal](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
-
-**Engineering process checkpoint:** BOL now maintains a permanent engineering operating procedure for authoritative checkpoint recovery, adversarial promotion, live-operation authority, evidence preservation, private/public separation, and session closeout. Established procedure takes precedence over workflow improvisation, and advisory tools do not establish runtime truth.
-
-[Read the engineering operating procedure progress report](docs/dev_journal/2026-11-12_engineering_operating_procedure.md)
-
-### Previous Phase 14C milestone
-
-**A bounded, manually authorized three-attempt remote possession measurement campaign completed over verified HTTPS.**
-
-All three challenges produced accepted historical possession results. For each response, BOL independently measured **1,024 bytes** and computed and verified **SHA-256**. The first attempt exposed an export-procedure defect while possession authority remained correct; the correction was fully recertified, and the next two attempts produced bounded sanitized exports with intentionally partial coverage.
-
-**The boundary remains explicit:** `proof_lifetime` remains NULL/unconfigured; current qualifying copies remain **zero** and durability remains **unproven**. No numeric freshness policy has been selected. Automated renewal, scheduling, repair and re-replication remain future work. This demonstrates repeatable controlled measurement, not production reliability or capacity, continuous storage or local-disk residency.
-
-[Read the September 28 measurement journal](docs/dev_journal/2026-09-28_phase14c_remote_measurement_campaign.md) · [First real remote possession milestone](docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md)
-
-## What works today?
-
-**Current milestone: Phase 14 — Authoritative Durability & Renewable Possession Assurance.**
-
-| Foundation | Implemented capability |
+| Area | What the code does |
 | --- | --- |
-| Authenticated participation | Node identity is established through authentication; nodes do not choose their own authority. |
-| Distributed storage workflows | Chunk and replica workflows separate assignment, storage, transfer completion and verification. |
-| Replica trust | BOL evaluates evidence and controls deterministic replica lifecycle transitions. |
-| Explainable durability | Required copies and qualifying copies are assessed separately, with reasons for exclusions. |
-| Physical-copy identity | Stable copy identity survives primary/replica role changes; enrollment does not imply possession. |
-| Possession challenges | BOL issues single-use read-back challenges and independently measures returned byte count and SHA-256. |
-| Reproducible control plane | An ordered bootstrap constructs the canonical database; startup verifies rather than repairs schema. |
+| Nodes | Register nodes, heartbeats, online/offline status, capacity reports, simulated node failure and failover. |
+| Files and chunks | Upload files, split them into chunks, place chunks on nodes, rebuild files from chunks. |
+| Replicas | Create and materialize chunk replicas across nodes. |
+| Integrity | SHA-256 checksums per chunk, verify files/chunks, simulate corruption, rebuild corrupt chunks from replicas. |
+| Encryption | Fernet encryption of uploaded files before chunking, and decryption on download. |
+| Validators | Read-only database checks for orphans, duplicates, primaries and healthy copies (`validators/`, `scripts/`). |
+| Auth | One shared API key (`X-API-Key` header) on every endpoint. |
 
-**Important:** successful possession challenges currently remain historical proof. While freshness policy is unconfigured, they contribute **zero sufficiently fresh qualifying copies** to durability assessment. That is a limit on what BOL can currently substantiate, not a declaration that the bytes have been lost.
+Not in this repository: a separate node agent, real network transfer between machines, possession challenges, freshness policy, schedulers or automatic repair.
 
-## How BOL works
+## Quick start
 
-| Step | Meaning and status |
-| --- | --- |
-| **STORE** | Implemented storage workflows handle bytes within the authorized storage boundary. |
-| **DISTRIBUTE** | Implemented replica workflows carry out BOL-authorized assignments. |
-| **VERIFY** | Implemented deterministic checks evaluate evidence and preserve lifecycle authority. |
-| **PROVE** | Implemented bounded challenges establish that an authenticated endpoint supplied the expected bytes during the challenge window. |
-| **RECOVER** | Future orchestration. Phase 14 assessment can identify an advisory need for repair, but does not perform it. |
+Requires Python 3.10+ and PostgreSQL.
 
-The implemented steps are documented in the [Phase 13](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md) and [Phase 14](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md) journals. “PROVE” does not mean continuous storage has been established.
-
-```mermaid
-flowchart TD
-    A["BOL assignment intent"] --> B["Authenticated Node Agents"]
-    B --> C["Storage and transfer observations"]
-    C --> D["BOL verification and lifecycle decisions"]
-    E["BOL possession challenge"] --> B
-    B --> F["Returned object bytes"]
-    F --> G["BOL measures byte count and SHA-256"]
-    G --> H["Historical possession proof"]
-    D --> I["Read-only durability assessment"]
-    H --> I
-    P["Policy and eligibility requirements"] --> I
-    I --> J["Explained result and advisory repair need"]
+```bash
+pip install -r requirements.txt
+cp .env.example .env        # then set DB_* and BOL_API_KEY
+uvicorn app:app --reload
+curl -H "X-API-Key: <your key>" http://127.0.0.1:8000/
 ```
 
-Historical proof becomes a qualifying input only when all applicable requirements are satisfied. Possession freshness is not yet configured.
+Tables are created on startup if they don't exist.
 
-### Evidence has boundaries
+Run the smoke tests (no database needed; the connection is mocked):
 
-Primary and replica copies use equivalent possession-proof semantics. Neither a primary label nor a legacy replica status receives a shortcut.
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
 
-Contradictory evidence remains visible. Earlier proof cannot erase a later contradiction; reconciliation requires qualifying subsequent challenge evidence.
+## Known limitations
 
-BOL preserves the distinction between:
+- Single control node; "nodes" are simulated on one machine.
+- Encryption keys are stored in the same database as the file records. Don't use this for real secrets.
+- One shared API key; no per-node identity in this code.
+- Test coverage is a small smoke suite only.
+- No automated scheduling, renewal or repair.
 
-- what a node reports;
-- what BOL verifies;
-- what lifecycle actions BOL authorizes;
-- and what durability policy can conclude.
+## Development journals
 
-AI may advise, but it does not mutate authoritative BOL state.
-
-[Explore the architecture](docs/architecture.md) · [Read the replica-trust journal](docs/dev_journal/2026-09-19_phase13_verified_replication_trust.md)
-
-## Engineering evidence
-
-The September 20, 2026 Phase 14 checkpoint recorded:
-
-| Certification result | Count |
-| --- | ---: |
-| Passing tests | 226 |
-| PostgreSQL integration tests, included above | 126 |
-| Python modules compiled | 87 |
-
-Certification covered reproducible empty-database construction, migration replay and upgrade, startup verification, adversarial evidence, credential behavior, concurrency, cancellation and privacy boundaries.
-
-Atomic operations own their database transactions. Storage protections remain in effect through protected filesystem work. Enrolled objects cannot bypass possession assurance through legacy mutation or standalone legacy integrity verification.
-
-These are checkpoint results, not a throughput benchmark, independent security audit or availability guarantee.
-
-This repository presents BOL's public foundation and engineering journals. The journals document milestone capability; they are not a claim that every described capability is available as a turnkey deployment from this checkout.
-
-[Read the complete Phase 14 engineering journal](docs/dev_journal/2026-09-20_phase14_durability_possession_assurance.md)
-
-## Current limits
-
-- **Freshness:** possession-proof lifetime remains unconfigured. Historical proof is not indefinitely current assurance.
-- **Renewal:** automated challenge scheduling is not complete.
-- **Repair:** Phase 14 does not provide automatic repair, re-replication or surplus deletion.
-- **Scope:** authoritative file-level durability remains future work.
-- **Independence:** device, operator and geographic guarantees are not established by distinct-node counting.
-- **Proof strength:** a successful challenge does not establish local-disk residency, continuous storage or inability to retrieve bytes from another source.
+The [journals](docs/dev_journal/) record the project's design work phase by phase, including later work (Phases 12–14D) whose code is not public. Treat them as design notes and progress reports, not as documentation for this checkout.
 
 ## Explore the network vision
 
@@ -164,15 +89,11 @@ This repository presents BOL's public foundation and engineering journals. The j
 
 ## Roadmap
 
-| Stage | Status | Focus |
-| --- | --- | --- |
-| Phase 11 — Replica Trust | Complete | Assignment intent, evidence, verification and lifecycle boundaries. |
-| Phase 12 — Node Agent Storage Protocol | Implemented and validated | Authenticated storage workflows and transfer-to-verification integration. |
-| Phase 13 — Verified Replication Trust | Complete | End-to-end replica trust and retry-safe observation identity. |
-| Phase 14A–14B — Durability & Possession Assurance | Implemented and certified | Explainable durability, stable copy identity and authenticated read-back challenges. |
-| Phase 14C — Renewal Measurement & Freshness Policy | Bounded remote measurement campaign complete; freshness policy pending | Three manually authorized challenges accepted; two bounded exports retained. Further evidence and review precede numeric freshness policy and activation. |
-| Phase 14D — Certification Infrastructure | Bounded hierarchy verification complete; credential/database readiness not established | Controlled certification-hierarchy provisioning and separate independent read-only verification completed. Credential generation/access, database certification and production activation are not established. |
-| Later orchestration | Future work | Automated renewal and repair/re-replication, subject to separate design and certification. |
+| Stage | Status |
+| --- | --- |
+| Public prototype (this repo) | Single-node control plane: chunking, replicas, checksums, encryption, simulated failover |
+| Phases 11–14D | Documented in journals; code not public |
+| Next | Automated renewal, repair and re-replication |
 
 ### The broader direction
 
