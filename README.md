@@ -6,7 +6,7 @@ Verifiable storage across independent machines—designed for AI teams and regul
 
 <p align="center">
   <a href="#whats-in-this-repository">What's here</a> ·
-  <a href="docs/dev_journal/2026-11-12_engineering_operating_procedure.md">Latest engineering journal</a> ·
+  <a href="docs/dev_journal/2026-11-23_security_hardening_checkpoint.md">Latest engineering journal</a> ·
   <a href="#roadmap">Roadmap</a> ·
   <a href="#get-involved">Get involved</a> ·
   <a href="LICENSE">MIT License</a>
@@ -15,6 +15,8 @@ Verifiable storage across independent machines—designed for AI teams and regul
 **STORE → DISTRIBUTE → VERIFY → PROVE → RECOVER**
 
 BOL is an early-stage, MIT-licensed prototype. It is **not production-ready**.
+
+Storage-path security hardening is incomplete. Don't expose this prototype to untrusted users or use it with sensitive data.
 
 > **Read this first:** this repository contains BOL's public control-plane prototype. The later Phase 12–14 work described in the [development journals](docs/dev_journal/) — the authenticated Node Agent, possession challenges and durability assessment — is **not included in this checkout**. Those journals describe work done outside this repository; you cannot reproduce it from this code.
 
@@ -58,6 +60,8 @@ Not in this repository: a separate node agent, real network transfer between mac
 
 ## Quick start
 
+Read the security warning at the top of this README before running locally.
+
 Requires Python 3.10+ and PostgreSQL.
 
 ```bash
@@ -100,15 +104,19 @@ The [journals](docs/dev_journal/) record the project's design work phase by phas
 
 ## Roadmap
 
-| Stage | Status |
+| Stage | Description |
 | --- | --- |
 | Public prototype (this repo) | Single-node control plane: chunking, replicas, checksums, encryption, simulated failover |
 | Phases 11–14D | Documented in journals; code not public |
-| Next | Automated renewal, repair and re-replication |
+| Current | Storage-path security hardening and isolated verification |
+| Next | Possession freshness and renewal |
+| Later | A controlled first deployment |
 
 ### The broader direction
 
 **Storage → Verified possession → AI datasets & model checkpoints → Automated recovery → Broader distributed infrastructure**
+
+Automated repair is a later goal and isn't part of the current work.
 
 Storage is today's foundation. The interoperability direction spans **AWS, Azure, GCP, on-premises and BOL-native infrastructure**. S3 compatibility is one planned interface, not BOL's platform identity or a delivered integration claim. Content delivery, edge infrastructure, distributed compute, AI inference and broader AI infrastructure remain longer-term goals.
 
@@ -118,6 +126,8 @@ Distribution, resilience, security, simplicity and participation guide that work
 
 ## Follow the engineering
 
+- [November 23 — Security Hardening Checkpoint](docs/dev_journal/2026-11-23_security_hardening_checkpoint.md)
+- [November 12 — Engineering Operating Procedure](docs/dev_journal/2026-11-12_engineering_operating_procedure.md)
 - [Phase 14D — Certification Infrastructure](docs/dev_journal/2026-10-22_phase14d_certification_infrastructure.md)
 - [Phase 14C — Bounded Remote Possession Measurement](docs/dev_journal/2026-09-28_phase14c_remote_measurement_campaign.md)
 - [Phase 14C — First Real Remote Possession Challenge](docs/dev_journal/2026-09-23_phase14c_real_remote_possession.md)
